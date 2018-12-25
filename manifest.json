@@ -1,0 +1,29 @@
+{
+    "manifest_version": 2,
+    "name": "AcceptLangSwitcher",
+    "version": "0.1",
+    "description": "Allows setting custom AcceptLanguage for different domains.",
+    "icons": {
+        "48": "icon.svg"
+    },
+
+    "permissions": [
+        "storage", "webRequest", "webRequestBlocking", "<all_urls>"
+    ],
+
+    "background": {
+        "scripts": ["background.js"]
+    },
+
+    "options_ui": {
+        "page": "options.html",
+        "browser_style": true,
+        "open_in_tab": false
+    },
+
+    "applications": {
+        "gecko": {
+          "id": "acceptlangswitcher@pfenninger.org"
+        }
+    }
+}
