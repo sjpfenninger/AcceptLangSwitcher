@@ -1,9 +1,53 @@
+function greyOutTopBottom(elem) {
+    var parent = elem.parentNode;
+
+    if (elem == parent.firstElementChild) {
+        elem.className = "datarow first";
+    } else if (elem == parent.lastElementChild) {
+        elem.className = "datarow last";
+    } else {
+        elem.className = "datarow";
+    }
+}
+
+function updateTable() {
+    var tableRows = document.getElementById("patternTable").childNodes;
+    for (var i = 0; i < tableRows.length; i++) {
+        greyOutTopBottom(tableRows[i]);
+    }
+}
+
 function addRow(e, pattern="", lang="") {
-    var tableRow = '<tr class="datarow"><td><input class="pattern" type="text" value="' + pattern + '"></td><td><input class="lang" type="text" value="' + lang + '"></td><td><button class="removeRow" type=button>X</button></td></tr>';
+    var tableRow = '<tr class="datarow"><td><input class="pattern" type="text" value="' + pattern + '"></td><td><input class="lang" type="text" value="' + lang + '"></td><td><button class="moveUp" type=button>↑</button><button class="moveDown" type=button>↓</button><button class="removeRow" type=button>❌</button></td></tr>';
     var table = document.getElementById("patternTable");
+
     table.insertAdjacentHTML('beforeend', tableRow);
-    // Also attach the removeRow function to the X button in the newly added table row
+
+    table.lastChild.getElementsByClassName("moveUp")[0].addEventListener('click', moveUp);
+    table.lastChild.getElementsByClassName("moveDown")[0].addEventListener('click', moveDown);
     table.lastChild.getElementsByClassName("removeRow")[0].addEventListener('click', removeRow);
+
+    updateTable()
+}
+
+function moveUp(e) {
+    var elem = e.srcElement.parentNode.parentNode;
+
+    if (elem.previousElementSibling) {
+        elem.parentNode.insertBefore(elem, elem.previousElementSibling);
+    }
+
+    updateTable();
+}
+
+function moveDown(e) {
+    var elem = e.srcElement.parentNode.parentNode;
+
+    if (elem.nextElementSibling) {
+        elem.parentNode.insertBefore(elem.nextElementSibling, elem);
+    }
+
+    updateTable();
 }
 
 function removeRow(e) {

@@ -21,6 +21,10 @@
   #saveSuccess {
     display: inline-block;
   }
+
+  .datarow.first .moveUp, .datarow.last .moveDown {
+    color: #c1c1c1;
+  }
 </style>
 
 <html>
@@ -29,9 +33,12 @@
   </head>
 
   <body>
+      <div>
+          <p>Set your default Accept-Language in Preferences (General → Language). Configure overrides for specific host name patterns below. The list is processed from the top and the first match found is used.</p>
+      </div>
       <table>
         <thead>
-          <tr><th><div>Hostname</div></th><th><div>Accept-Language</div></th></tr></thead>
+          <tr><th><div>Host name pattern</div></th><th><div>Accept-Language</div></th></tr></thead>
         <tbody id="patternTable">
         </tbody>
       </table>

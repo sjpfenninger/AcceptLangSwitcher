@@ -1,5 +1,10 @@
 function rewriteAcceptLanguage(e) {
 
+    function glob(pattern, input) {
+        var re = new RegExp(pattern.replace(/([.?+^$[\]\\(){}|\/-])/g, "\\$1").replace(/\*/g, '.*'));
+        return re.test(input);
+    }
+
     function onError(error) {
         console.log(`Error: ${error}`);
     }
@@ -22,7 +27,7 @@ function rewriteAcceptLanguage(e) {
                     }
 
                 // If there is a match, modify headers, return (= stop here)
-                if (host === patt) {
+                if ( glob(patt, host) ) {
                     for (var header of e.requestHeaders) {
                         if (header.name.toLowerCase() === "accept-language") {
                           header.value = lang;
